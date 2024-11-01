@@ -1,0 +1,59 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    margin: 0;
+}
+
+.fav-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Space between cards */
+}
+
+.fav-card {
+    width: 200px;
+    height: 300px;
+    perspective: 1000px; /* Enables 3D effect */
+}
+
+/* Card Inner Styling */
+.fav-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Flip effect */
+.fav-card.flipped .fav-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Card Front and Back Styling */
+.fav-card-front, .fav-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* Hides the opposite side */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    color: white;
+    border-radius: 15px;
+}
+
+.fav-card-front {
+    background-color: #007bff;
+}
+
+.fav-card-back {
+    background-color: #dc3545;
+    transform: rotateY(-180deg); /* Ensures back is hidden initially */
+}

@@ -1,0 +1,18 @@
+#timeline {
+    margin: 20px 0;
+}
+.timeline-event {
+    margin: 10px 0;
+}
+#fun-moments, #thank-you-slideshow {
+    margin: 20px 0;
+}
+button {
+    margin: 10px 5px;
+    padding: 8px 12px;
+}
+#thank-you-message {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+}

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You Celebration</title>
+    <style>
+        .Thanks-body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f8ff; /* Light background color */
+            overflow: hidden; /* Prevent scrolling */
+            position: relative; /* Position for absolute elements */
+        }
+
+        .Thanks-h2 {
+            font-size: 4rem; /* Bigger font size for the header */
+            text-align: center;
+            animation: pulse 1.5s infinite; /* Pulsing effect */
+            color: #ff6347; /* Tomato color */
+            position: relative;
+            z-index: 10; /* Ensure text is above animations */
+        }
+
+        .Thanks-p {
+            font-size: 2rem; /* Bigger font size for the paragraph */
+            text-align: center;
+            color: #4682b4; /* Steel blue color */
+            animation: fadeIn 2s forwards; /* Fade in effect */
+            opacity: 0; /* Start hidden */
+            position: relative;
+            z-index: 10; /* Ensure text is above animations */
+            margin-top: 20px; /* Spacing between header and paragraph */
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1; /* End with full opacity */
+            }
+        }
+
+        .confetti {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none; /* Allow clicks to pass through */
+            z-index: 5; /* Behind the text */
+        }
+
+        .confetti div {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ff0; /* Yellow */
+            opacity: 0.8;
+            animation: fall linear infinite; /* Falling animation */
+        }
+
+        /* Create random falling animations */
+        @keyframes fall {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(100vh); /* Fall to the bottom */
+            }
+        }
+    </style>
+</head>
+<body>
+	<section class="Thanks-body">
+    <div class="confetti"></div> <!-- Confetti container -->
+
+    <h2 class="Thanks-h2">Thank You Again!</h2>
+    <p class="Thanks-p">Thank you, Bhavesh, for being not just a mentor but a true friend. You’ve made a huge impact, and I’ll carry your lessons forward!</p>
+	</section>
+    <script>
+        // Generate confetti
+        const confettiContainer = document.querySelector('.confetti');
+
+        for (let i = 0; i < 100; i++) {
+            const confettiPiece = document.createElement('div');
+            confettiPiece.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`; // Random color
+            confettiPiece.style.left = `${Math.random() * 100}vw`; // Random horizontal position
+            confettiPiece.style.animationDuration = `${Math.random() * 2 + 3}s`; // Random falling duration
+            confettiPiece.style.animationDelay = `${Math.random() * 3}s`; // Random delay
+            confettiContainer.appendChild(confettiPiece);
+        }
+    </script>
+
+</body>
+</html>

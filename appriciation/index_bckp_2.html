@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To an Incredible Mentor and Friend!</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        /* Simple CSS for styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header, section, footer {
+            background: white;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .hidden {
+            display: none; /* Hides sections initially */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Landing Page -->
+        <header id="landing-page">
+            <h1>To an Incredible Mentor and Friend!</h1>
+            <img src="gifs/handshake.gif" alt="Handshake GIF" class="welcome-gif">
+            <p>Hey Bhavesh! Since I couldn’t send you a farewell box, I made you something even sweeter. Thanks for everything!</p>
+            <button onclick="nextPage()">Next</button>
+        </header>
+
+        <!-- Interactive Timeline -->
+        <section id="timeline" class="hidden">
+            <h2>Our Journey Together</h2>
+            <p>In our first meeting – when I didn't know much about Maximo REST Integration!</p>
+            <p>You pointed me in the right direction..!! couldn’t have done it without your energy..!!</p>
+            <p>And gave me enough Freedom and encouraged me to try out new things..!!</p>
+            <p>I have learned so many things from you, one of them was - Designing solutions like a pro..!!</p>
+            <p>Learning to present effectively—thanks for showing me how to keep the meetings crisp and short and engage with others!</p>
+            <p>You have shown me WHY it's important to keep bonds lively with clients, teammates, and external teams and HOW to do it!</p>
+            <p>Tracking everything like a master—your organization skills inspired me!</p>
+            <p>Thanks for engaging me with all Important meetings and calls and activities, It really helped me grow both technically and professionally!</p>
+            <div>
+                <button onclick="prevPage()">Previous</button>
+                <button onclick="nextPage()">Next</button>
+            </div>
+        </section>
+
+        <!-- Messages of Appreciation -->
+        <section id="appreciation" class="hidden">
+            <h2>Top 3 things I admired the most</h2>
+            <p id="appreciation-message">Click a button to reveal a message.</p>
+            <button onclick="revealMessage('Consulting Other\'s Perspectives')">Consulting Other's Perspectives</button>
+            <button onclick="revealMessage('Working as a Partner instead of Manager')">Working as a Partner</button>
+            <button onclick="revealMessage('Supporting like a Friend..!!')">Supporting like a Friend</button>
+            <div>
+                <button onclick="prevPage()">Previous</button>
+                <button onclick="nextPage()">Next</button>
+            </div>
+        </section>
+
+        <!-- Fun Mentorship Moments -->
+        <section id="fun-moments" class="hidden">
+            <h2>Fun Mentorship Moments</h2>
+            <button onclick="showMoment('Most memorable lesson: That one time I thought I’d messed up big-time, and you just laughed!')">Most Memorable Lesson</button>
+            <button onclick="showMoment('Unexpected support: Every time you backed my wild ideas!')">Unexpected Support</button>
+            <p id="moment-message">Click a button to reveal a story.</p>
+            <div>
+                <button onclick="prevPage()">Previous</button>
+                <button onclick="nextPage()">Next</button>
+            </div>
+        </section>
+
+        <!-- Thank You Slideshow -->
+        <section id="thank-you-slideshow" class="hidden">
+            <h2>Thank You</h2>
+            <p id="thank-you-message">For your patience</p>
+            <div>
+                <button onclick="prevPage()">Previous</button>
+                <button onclick="nextPage()">Finish</button>
+            </div>
+        </section>
+
+        <footer id="thank-you-again" class="hidden">
+            <h2>Thank You Again!</h2>
+            <p>Thank you, [Lead’s Name], for being not just a mentor but a true friend. You’ve made a huge impact, and I’ll carry your lessons forward!</p>
+        </footer>
+    </div>
+
+    <script>
+        let currentPage = 0;  // Initialize current page to 0
+        const sections = [
+            "landing-page",
+            "timeline",
+            "appreciation",
+            "fun-moments",
+            "thank-you-slideshow",
+            "thank-you-again"
+        ];
+
+        function revealMessage(message) {
+            document.getElementById("appreciation-message").innerText = message;
+        }
+
+        function showMoment(message) {
+            document.getElementById("moment-message").innerText = message;
+        }
+
+        function showPage(index) {
+            // Hide all sections
+            sections.forEach(section => {
+                document.getElementById(section).classList.add('hidden');
+            });
+            // Show current page
+            document.getElementById(sections[index]).classList.remove('hidden');
+        }
+
+        function nextPage() {
+            if (currentPage < sections.length - 1) {
+                currentPage++;
+                showPage(currentPage);
+            } else {
+                alert("Thank you for viewing!");
+            }
+        }
+
+        function prevPage() {
+            if (currentPage > 0) {
+                currentPage--;
+                showPage(currentPage);
+            }
+        }
+
+        // Initialize
+        showPage(currentPage); // Show the first page initially
+    </script>
+</body>
+</html>

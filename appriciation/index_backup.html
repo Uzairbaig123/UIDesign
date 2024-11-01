@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To an Incredible Mentor and Friend!</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Landing Page -->
+        <header>
+            <h1>To an Incredible Mentor and Friend!</h1>
+            <img src="gifs/handshake.gif" alt="Handshake GIF" class="welcome-gif">
+            <p>Hey Bhavesh! Since I couldn’t send you a farewell box, I made you something even sweeter. Thanks for everything!</p>
+        </header>
+
+        <!-- Interactive Timeline -->
+        <section id="timeline">
+            <h2>Our Journey Together</h2>
+            <div class="timeline-event">
+                <p>In our first meeting – when i didn't know much about Maximo REST Inegration!</p>
+                <img src="gifs/lost.gif" alt="Funny Lost GIF">
+            </div>
+			<div class="timeline-event">
+                <p>You pointed me to the right direction..!! couldn’t have done it without your energy..!!</p>
+                <img src="gifs/guide.gif" alt="guided GIF">
+            </div>
+			<div class="timeline-event">
+                <p>And gave me enough Freedom and encouraged me to try out new things..!!</p>
+                <img src="gifs/freedom.gif" alt="Brainstorming GIF">
+            </div>
+            <div class="timeline-event">
+                <p>I have learned so many things from you, one of them was - Designing solutions like a pro..!!</p>
+                <img src="gifs/brainstorm.gif" alt="Brainstorming GIF">
+            </div>
+			<div class="timeline-event">
+                <p>Learning to present effectively—thanks for showing me how to keep the meetings crisp and short and engage with others!</p>
+                <img src="gifs/explaining.gif" alt="Confident Presentation GIF">
+            </div>
+            <div class="timeline-event">
+                <p>You have shown me WHY its important to keep bonds lively with clients, teammates and external teams and HOW to do it!</p>
+                <img src="path/to/group-meeting.gif" alt="Fun Group Meeting GIF">
+            </div>
+            <div class="timeline-event">
+                <p>Tracking everything like a master—your organization skills inspired me!</p>
+                <img src="gifs/checklist.gif" alt="Checklist GIF">
+            </div>
+			<div class="timeline-event">
+                <p>Thanks for engaging me with all Important meetings and calls and activities, It really helped me grow both technically and professionally !</p>
+                <img src="path/to/checklist.gif" alt="Checklist GIF">
+            </div>
+        </section>
+
+        <!-- Messages of Appreciation -->
+        <section class="appreciation">
+            <h2>Top 3 things i admired the most</h2>
+            <div id="message-container">
+                <button onclick="revealMessage(0)">Consulting Other's Perspectives</button>
+				<button onclick="revealMessage(1)">Working as a Partner instead of Manager</button>
+                <button onclick="revealMessage(2)">Supporting like a Friend..!!</button>
+                <button onclick="revealMessage(3)">Freedom and Ecouragement to Explore..!!</button>
+                <p id="appreciation-message">Click a button to reveal a message.</p>
+            </div>
+        </section>
+
+        <!-- Fun Mentorship Moments -->
+        <section id="fun-moments">
+            <h2>Fun Mentorship Moments</h2>
+            <button onclick="showMoment(0)">Most Memorable Lesson</button>
+            <button onclick="showMoment(1)">Unexpected Support</button>
+            <p id="moment-message">Click a button to reveal a story.</p>
+        </section>
+
+        <!-- Thank You Slideshow -->
+        <section id="thank-you-slideshow">
+            <h2>Thank You</h2>
+            <div id="thank-you-message">For your patience</div>
+        </section>
+
+        <footer>
+            <h2>Thank You Again!</h2>
+            <p>Thank you, [Lead’s Name], for being not just a mentor but a true friend. You’ve made a huge impact, and I’ll carry your lessons forward!</p>
+        </footer>
+    </div>
+
+    <script>
+        const messages = [
+            "Consulting Other's Perspectives",
+            "Working as a Partner instead of Manager",
+            "Supporting like a Friend..!!",
+			"Freedom and Ecouragement to Explore..!!"
+        ];
+        const moments = [
+            "Most memorable lesson: That one time I thought I’d messed up big-time, and you just laughed!",
+            "Unexpected support: Every time you backed my wild ideas!"
+        ];
+        const thankYouMessages = ["For your patience", "For always guiding me", "For all the laughs", "Thank you for everything!"];
+
+        function revealMessage(index) {
+            document.getElementById("appreciation-message").innerText = messages[index];
+        }
+
+        function showMoment(index) {
+            document.getElementById("moment-message").innerText = moments[index];
+        }
+
+        let thankYouIndex = 0;
+        function updateThankYouMessage() {
+            document.getElementById("thank-you-message").innerText = thankYouMessages[thankYouIndex];
+            thankYouIndex = (thankYouIndex + 1) % thankYouMessages.length;
+        }
+        setInterval(updateThankYouMessage, 2000);
+    </script>
+</body>
+</html>
