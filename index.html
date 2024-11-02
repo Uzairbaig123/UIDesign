@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To an Incredible Mentor and Friend!</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        /* Simple CSS for styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header, section, footer {
+            background: white;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .hidden {
+            display: none; /* Hides sections initially */
+        }
+		.card-img-top {
+			padding: 0; 
+			margin: 0; 
+			width: 200px; 
+			height:500px;
+		}
+		/* Cards CSS */
+		.fav-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .fav-card {
+            width: 200px;
+            height: 300px;
+            perspective: 1000px;
+            cursor: pointer;
+            transition: transform 0.4s ease-in-out;
+        }
+
+        .fav-card.flipped {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1.3);
+            z-index: 10;
+        }
+
+        .fav-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .fav-card.flipped .fav-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .fav-card-front, .fav-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .fav-card-front {
+            background-color: #ffffff;
+        }
+
+        .fav-card-back {
+            background-color: #4caf50;
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .fav-card h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .fav-card p {
+            font-size: 14px;
+            line-height: 1.4;
+        }
+		
+		.liked-card {
+            cursor: pointer; /* Change cursor to pointer */
+            transition: transform 0.3s ease; /* Add transition effect */
+            background-color: #d3d3d3; /* Light gray background for initial state */
+            color: black; /* Text color for initial state */
+            border: 1px solid green; /* Border to indicate the card */
+            border-radius: 5px; /* Optional rounded corners */
+            padding: 10px; /* Padding for card content */
+            margin: 10px; /* Space between cards */
+            min-height: 440px; /* Minimum height for the card to prevent it from appearing as a line */
+            display: flex; /* Use flex to center content */
+            flex-direction: column; /* Align children vertically */
+            justify-content: center; /* Center the children */
+            align-items: center; /* Center the children horizontally */
+        }
+
+        .liked-card.selected {
+            background-color: #4caf50; /* Highlight color for the selected card */
+            color: white; /* Change text color when selected */
+            transform: scale(1.05); /* Scale effect for selected card */
+        }
+
+        .liked-card-header,
+        .liked-card-img,
+        .liked-card-body {
+            display: none; /* Initially hide all elements */
+        }
+
+        .liked-card.selected .liked-card-header,
+        .liked-card.selected .liked-card-img,
+        .liked-card.selected .liked-card-body {
+            display: block; /* Show elements for selected card */
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .d-flex {
+            justify-content: center; /* Center the card container */
+            margin-bottom: 20px; /* Add space below the cards */
+        }
+
+		/*Thanks CSS*/
+		
+		.Thanks-body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f8ff; /* Light background color */
+            overflow: hidden; /* Prevent scrolling */
+            position: relative; /* Position for absolute elements */
+        }
+
+        .Thanks-h2 {
+            font-size: 4rem; /* Bigger font size for the header */
+            text-align: center;
+            animation: pulse 1.5s infinite; /* Pulsing effect */
+            color: #ff6347; /* Tomato color */
+            position: relative;
+            z-index: 10; /* Ensure text is above animations */
+        }
+
+        .Thanks-p {
+            font-size: 2rem; /* Bigger font size for the paragraph */
+            text-align: center;
+            color: #4682b4; /* Steel blue color */
+            animation: fadeIn 2s forwards; /* Fade in effect */
+            opacity: 0; /* Start hidden */
+            position: relative;
+            z-index: 10; /* Ensure text is above animations */
+            margin-top: 20px; /* Spacing between header and paragraph */
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1; /* End with full opacity */
+            }
+        }
+
+        .confetti {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none; /* Allow clicks to pass through */
+            z-index: 5; /* Behind the text */
+        }
+
+        .confetti div {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ff0; /* Yellow */
+            opacity: 0.8;
+            animation: fall linear infinite; /* Falling animation */
+        }
+
+        /* Create random falling animations */
+        @keyframes fall {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(100vh); /* Fall to the bottom */
+            }
+        }
+
+
+		
+    </style>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+<body>
+    <div class="container">
+        <!-- Landing Page -->
+        <header id="landing-page">
+			
+			<div class="d-flex justify-content-center flex-wrap">
+				<div class="card mb-3" style="width: 70%; border: 0">
+					<h1 style="padding-bottom: 25px; text-align: center">To an Incredible Mentor and Friend!</h1>
+					<img src="gifs/handshake.gif" alt="Handshake GIF" class="welcome-gif" style="padding: 0; margin: 0; width: 100%;">
+					<div class="card-body" style="padding: 0; margin: 0; width: 100%;padding-top: 25px;">
+						<p>Hey Bhavesh! Since I couldn’t send you a farewell box, I made you something even sweeter. Thanks for everything!</p>
+					</div>
+				</div>
+			</div>
+			<div class="d-flex justify-content-center">
+				<button onclick="nextPage()">Next</button>
+			</div>
+        </header>
+
+        <!-- Interactive Timeline -->
+		
+        <section id="timeline1" class="hidden">
+			<div class="d-flex justify-content-center flex-wrap">
+				<div class="card mb-3" style=" border: none;">
+					<h4 class="card-title" style="text-align:center; padding-bottom:25px">The Begining - REST</h5>
+					<img src="gifs/adventure.gif" class="card-img-top" alt="Funny Lost GIF" >
+					<div class="card-body" style="padding: 0; margin: 0; width: 100%;padding-top: 25px;">
+						<p class="card-text">In our first meeting – when I didn't know much about Maximo REST Integration! It was something new for me, a whole new world.</p>
+					</div>
+				</div>
+			</div>
+			<div class="d-flex justify-content-center">
+				<button onclick="prevPage()">Previous</button>
+				<button onclick="nextPage()">Next</button>
+			</div>
+		</section>
+
+		<section id="timeline2" class="hidden">
+			<div class="d-flex justify-content-center flex-wrap">
+				<div class="card mb-3" style=" border: none;">
+					<h5 class="card-title" style="text-align:center; padding-bottom:25px">You Kick started my REST journey</h5>
+					<img src="gifs/guide.gif" class="card-img-top" alt="Guided GIF" >
+					<div class="card-body" style="padding: 0; margin: 0; width: 100%;padding-top: 25px;">
+						<p class="card-text">You pointed me in the right direction..!! and shared <a href="https://www.ibm.com/support/pages/system/files/inline-files/Maximo_NextGen_REST_API_-_nextgen.pdf">NextGen Rest API</a> with me. Thanks for it.. a turning point for me.! couldn’t have done it without your guidance..!!</p>
+					</div>
+				</div>
+			</div>
+			<div class="d-flex justify-content-center">
+				<button onclick="prevPage()">Previous</button>
+				<button onclick="nextPage()">Next</button>
+			</div>
+		</section>
+
+		<section id="timeline3" class="hidden">
+			<div class="d-flex justify-content-center flex-wrap">
+				<div class="card mb-3" style="width: 40%; border: 0">
+					<h5 class="card-title" style="text-align:center; padding-bottom:25px">Freedom to Explore</h5>
+					<img src="gifs/freedom.gif" class="card-img-top" alt="Brainstorming GIF" style="padding: 0; margin: 0; width: 100%;">
+					<div class="card-body" style="padding: 0; margin: 0; width: 100%;padding-top: 25px;">
+						<p class="card-text">You totally gave me the FREEDOM to explore and pushed me to try out all sorts of NEW things..!!</p>
+					</div>
+				</div>
+			</div>
+			<div class="d-flex justify-content-center">
+				<button onclick="prevPage()">Previous</button>
+				<button onclick="nextPage()">Next</button>
+			</div>
+		</section>
+
+		<section id="timeline4" class="hidden">
+			<div class="d-flex justify-content-center flex-wrap">
+				<div class="card mb-3" style="width: 40%; border: 0">
+					<h5 class="card-title" style="text-align:center; padding-bottom:25px">Designing Solutions Like a Pro</h5>
+					<img src="gifs/brainstorm.gif" class="card-img-top" alt="Brainstorming GIF" style="padding: 0; margin: 0; width: 100%;">
+					<div class="card-body" style="padding: 0; margin: 0; width: 100%;padding-top: 25px;">
+						<p class="card-text">I have learned so many things from you, one of them was - Designing solutions like a pro..!!</p>
+					</div>
+				</div>
+			</div>
+			<div class="d-flex justify-content-center">
+				<button onclick="prevPage()">Previous</button>
+				<button onclick="nextPage()">Next</button>
+			</div>
+		</section>
+
+		<section id="timeline5" class="hidden">
+			<div class="d-flex justify-content-center flex-wrap">
+				<div class="card mb-3" style="width: 40%; border: 0">
+					<h5 class="card-title" style="text-align:center; padding-bottom:25px">Effective Presentations</h5>
+					<img src="gifs/explaining.gif" class="card-img-top" alt="Confident Presentation GIF" style="padding: 0; margin: 0; width: 100%;">
+					<div class="card-body" style="padding: 0; margin: 0; width: 100%;padding-top: 25px;">
+						<p class="card-text">Learning to present effectively—thanks for showing me how to keep the meetings crisp and short and engage with others!</p>
+					</div>
+				</div>
+			</div>
+			<div class="d-flex justify-content-center">
+				<button onclick="prevPage()">Previous</button>
+				<button onclick="nextPage()">Next</button>
+			</div>
+		</section>
+
+		<section id="timeline6" class="hidden">
+			<div class="d-flex justify-content-center flex-wrap">
+				<div class="card mb-3" style="width: 40%; border: 0">
+					<h5 class="card-title" style="text-align:center; padding-bottom:25px">Importance of Bonds</h5>
+					<img src="gifs/teambond.gif" class="card-img-top" alt="Fun Group Meeting GIF" style="padding: 0; margin: 0; width: 100%;">
+					<div class="card-body" style="padding: 0; margin: 0; width: 100%;padding-top: 25px;">
+						<p class="card-text">You have shown me WHY it’s important to keep bonds lively with clients, teammates, and external teams and HOW to do it!</p>
+					</div>
+				</div>
+			</div>
+			<div class="d-flex justify-content-center">
+				<button onclick="prevPage()">Previous</button>
+				<button onclick="nextPage()">Next</button>
+			</div>
+		</section>
+
+		<section id="timeline7" class="hidden">
+			<div class="d-flex justify-content-center flex-wrap">
+				<div class="card mb-3" style="width: 40%; border: 0">
+					<h5 class="card-title" style="text-align:center; padding-bottom:25px">Mastering Organization</h5>
+					<img src="gifs/checklist.gif" class="card-img-top" alt="Checklist GIF" style="padding: 0; margin: 0; width: 100%;">
+					<div class="card-body" style="padding: 0; margin: 0; width: 100%;padding-top: 25px;">
+						<p class="card-text">Tracking everything like a master—your organization skills inspired me..!! Be it cut over / hypercare tracking or daily To-Do list, be it how to use OneNote like a master or using notepade ++ for keeping notes, learned so much. Thanks a lot..!! </p>
+					</div>
+				</div>
+			</div>
+			<div class="d-flex justify-content-center">
+				<button onclick="prevPage()">Previous</button>
+				<button onclick="nextPage()">Next</button>
+			</div>
+		</section>
+
+		<section id="timeline8" class="hidden">
+			<div class="d-flex justify-content-center flex-wrap">
+				<div class="card mb-3" style="width: 40%; border: 0">
+					<h5 class="card-title" style="text-align:center; padding-bottom:25px">Engagement and Growth</h5>
+					<img src="gifs/meeting.gif" class="card-img-top" alt="Checklist GIF" style="padding: 0; margin: 0; width: 100%;">
+					<div class="card-body" style="padding: 0; margin: 0; width: 100%;padding-top: 25px;">
+						<p class="card-text">Thanks for involving me in all the important meetings, calls, and activities; it really helped me grow both technically and professionally!</p>
+					</div>
+				</div>
+			</div>
+			<div class="d-flex justify-content-center">
+				<button onclick="prevPage()">Previous</button>
+				<button onclick="nextPage()">Next</button>
+			</div>
+		</section>
+
+		
+
+        <!-- Messages of Appreciation -->
+		
+		<section id="appreciation" class="hidden" >
+            <h2 style="text-align:center;">Top 3 things I admired the most</h2>
+            <div class="fav-container" >
+				<!-- Card 1 -->
+				<div class="fav-card" onclick="toggleFlip(this)">
+					<div class="fav-card-inner">
+						<div class="fav-card-front">
+							<h1>⟳</h1>
+						</div>
+						<div class="fav-card-back">
+							<h4>Encouraging Collaborative Input</h4>
+							<p>Your openness to collaborative input and consistent effort to gather insights from the entire team inspire us all and make us feel truly valued in the decision-making process.</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- Card 2 -->
+				<div class="fav-card" onclick="toggleFlip(this)">
+					<div class="fav-card-inner">
+						<div class="fav-card-front">
+							<h1>⟳</h1>
+						</div>
+						<div class="fav-card-back">
+							<h4>Seeking Team Perspectives</h4>
+							<p>By actively seeking everyone’s perspectives, you foster a strong sense of teamwork and create an environment where each of us feels heard and motivated.</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- Card 3 -->
+				<div class="fav-card" onclick="toggleFlip(this)">
+					<div class="fav-card-inner">
+						<div class="fav-card-front">
+							<h1>⟳</h1>
+						</div>
+						<div class="fav-card-back">
+							<h5>Collaborating as a Colleague, Not Just a Manager</h5>
+							<p>Your leadership style feels more like collaboration with a colleague than traditional management, fostering a supportive atmosphere. This approach makes us feel valued and motivates us to contribute our best ideas.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div style="padding-top:25px;">
+				<div class="d-flex justify-content-center">
+					<button onclick="prevPage()">Previous</button>
+					<button onclick="nextPage()">Next</button>
+				</div>
+			</div>
+        </section>
+
+        <!-- Fun Mentorship Moments -->
+        <section id="fun-moments">
+			<h2 style="padding-bottom:25px;">2 Things I Can Never Forget</h2>
+			<div class="d-flex flex-wrap">
+				<!-- Card 1 -->
+				<div class="liked-card mb-3" style="width: 40%;" onclick="selectLikedCard(this)">
+					<div class="liked-card-header" style="text-align:center; padding-bottom:25px;">
+						<h5 class="card-title">Lesson Learned</h5>
+					</div>
+					<img src="gifs/teambond.gif" class="liked-card-img card-img-top" alt="Fun Group Meeting GIF" style="width: 100%; height: auto;">
+					<div class="liked-card-body" style="padding-top: 25px;">
+						<p class="card-text">I appreciate how you always say "lesson learned" whenever we encounter challenges or discover better solutions. It truly resonates with me, and I admire your positive approach. I plan to adopt this mindset in the future. Thank you for teaching me this valuable lesson!</p>
+					</div>
+				</div>
+				
+				<!-- Card 2 -->
+				<div class="liked-card mb-3" style="width: 40%;" onclick="selectLikedCard(this)">
+					<div class="liked-card-header" style="text-align:center; padding-bottom:25px;">
+						<h5 class="card-title">Another Set of Eyes</h5>
+					</div>
+					<img src="gifs/teambond.gif" class="liked-card-img card-img-top" alt="Fun Group Meeting GIF" style="width: 100%; height: auto;">
+					<div class="liked-card-body" style="padding-top: 25px;">
+						<p class="card-text">Once you told me - Whenever you find yourself stuck on a problem and can't pinpoint the exact issue, remember to get another set of eyes. I’ve tried this a couple of times in our project, and it has worked every time! Thank you for sharing this genius idea!</p>
+					</div>
+				</div>
+			</div>
+			<div style="padding-top:25px; center;">
+				<div class="d-flex justify-content-center">
+					<button onclick="prevPage()">Previous</button>
+					<button onclick="nextPage()">And.....</button>
+				</div>
+            </div>
+		</section>
+
+
+        <!-- Thank You Slideshow -->
+        <section id="thank-you-slideshow" class="hidden">
+            <div class="d-flex justify-content-center flex-wrap">
+				<div class="card mb-3" style="width: 40%; border: 0">
+					<h5 class="card-title" style="text-align:center; padding-bottom:25px">I believe it too—that we should have a day when we only talk in GIFs! Let's start a petition for it!😜</h5>
+					<img src="gifs/petition.gif" class="card-img-top" alt="Brainstorming GIF" style="padding: 0; margin: 0; width: 100%;">
+				</div>
+			</div>
+            <div style="padding-top:25px; center;">
+				<div class="d-flex justify-content-center">
+					<button onclick="prevPage()">Previous</button>
+					<button onclick="nextPage()">Finish</button>
+				</div>
+            </div>
+        </section>
+
+        <footer id="thank-you-again" class="hidden">
+			<section class="Thanks-body">
+                <div class="confetti"></div> <!-- Confetti container -->
+				<h2 class="Thanks-h2">Thank You Again!</h2>
+				<p class="Thanks-p">Thank you, Bhavesh, for being not just a mentor but a true friend. You’ve made a huge impact, and I’ll carry your lessons forward!</p>
+			</section>
+        </footer>
+    </div>
+
+    <script>
+        let currentPage = 0;  // Initialize current page to 0
+        const sections = [
+            "landing-page",
+			"timeline1",
+			"timeline2",
+			"timeline3",
+			"timeline4",
+			"timeline5",
+			"timeline6",
+			"timeline7",
+			"timeline8",
+            "appreciation",			
+            "fun-moments",
+            "thank-you-slideshow",
+            "thank-you-again"
+        ];
+
+        function revealMessage(message) {
+            document.getElementById("appreciation-message").innerText = message;
+        }
+
+        function showMoment(message) {
+            document.getElementById("moment-message").innerText = message;
+        }
+
+        function showPage(index) {
+            // Hide all sections
+            sections.forEach(section => {
+                document.getElementById(section).classList.add('hidden');
+            });
+            // Show current page
+            document.getElementById(sections[index]).classList.remove('hidden');
+        }
+
+        function nextPage() {
+            if (currentPage < sections.length - 1) {
+                currentPage++;
+                showPage(currentPage);
+            } else {
+                alert("Thank you for viewing!");
+            }
+        }
+
+        function prevPage() {
+            if (currentPage > 0) {
+                currentPage--;
+                showPage(currentPage);
+            }
+        }
+		
+		function toggleFlip(card) {
+            // Remove flipped class from other cards
+            document.querySelectorAll('.fav-card').forEach(el => {
+                if (el !== card) {
+                    el.classList.remove('flipped');
+                }
+            });
+            
+            // Toggle flipped class on the clicked card
+            card.classList.toggle('flipped');
+        }
+		
+		function selectLikedCard(card) {
+        // Remove selected class from all liked cards
+        const cards = document.querySelectorAll('.liked-card');
+        cards.forEach(c => {
+            c.classList.remove('selected');
+        });
+        
+        // Add selected class to the clicked liked card
+        card.classList.add('selected');
+    }
+	
+		const confettiContainer = document.querySelector('.confetti');
+
+        for (let i = 0; i < 100; i++) {
+            const confettiPiece = document.createElement('div');
+            confettiPiece.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`; // Random color
+            confettiPiece.style.left = `${Math.random() * 100}vw`; // Random horizontal position
+            confettiPiece.style.animationDuration = `${Math.random() * 2 + 3}s`; // Random falling duration
+            confettiPiece.style.animationDelay = `${Math.random() * 3}s`; // Random delay
+            confettiContainer.appendChild(confettiPiece);
+        }
+
+        // Initialize
+		<!-- currentPage=9 -->
+        showPage(currentPage); // Show the first page initially
+    </script>
+</body>
+</html>
